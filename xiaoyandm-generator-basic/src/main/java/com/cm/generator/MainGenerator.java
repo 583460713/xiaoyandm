@@ -15,7 +15,7 @@ public class MainGenerator {
     public static void doGemerate(Object model) throws TemplateException, IOException {
         String projectPath = System.getProperty("user.dir");
         //项目的根路径
-        File parentFile = new File(projectPath).getParentFile();
+        File parentFile = new File(projectPath);
         //输入路径
         String inputPath = new File(parentFile, "xiaoyandm-generator-demo-projects/acm-template").getAbsolutePath();
         String outPath = projectPath;
@@ -31,7 +31,7 @@ public class MainGenerator {
         MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
         mainTemplateConfig.setAuthor("chenmin");
         mainTemplateConfig.setLoop(false);
-        mainTemplateConfig.setOutputText("求和结果");
+        mainTemplateConfig.setOutputText("求和结果：");
         doGemerate(mainTemplateConfig);
     }
 }
