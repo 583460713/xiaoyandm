@@ -1,6 +1,6 @@
 package com.cm.generator;
 
-import cn.hutool.core.io.file.FileWriter;
+import cn.hutool.core.io.FileUtil;
 import com.cm.model.MainTemplateConfig;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -15,25 +15,26 @@ import java.io.Writer;
  */
 public class DynamicGenerator {
     public static void main(String[] args) throws IOException, TemplateException {
-        String projectPath = System.getProperty("user.dir")  + File.separator + "xiaoyandm-generator-basic";
+        String projectPath = System.getProperty("user.dir") + File.separator + "xiaoyandm-generator-basic";
         String inputPath = projectPath + File.separator + "src/main/resources/templates/MainTemplate.java.ftl";
         String outputPath = projectPath + File.separator + "MainTemplate.java";
         MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
         mainTemplateConfig.setAuthor("chenmin");
         mainTemplateConfig.setOutputText("sum:");
         mainTemplateConfig.setLoop(false);
-        doGenerate(inputPath,outputPath,mainTemplateConfig);
+        doGenerate(inputPath, outputPath, mainTemplateConfig);
     }
 
     /**
      * 生成文件
-     * @param inputPath     模板文件输入路径
-     * @param outputPath    输出路径
-     * @param model         数据模型
+     *
+     * @param inputPath  模板文件输入路径
+     * @param outputPath 输出路径
+     * @param model      数据模型
      * @throws IOException
      * @throws TemplateException
      */
-    public static void doGenerate(String inputPath,String outputPath,Object model) throws IOException, TemplateException {
+    public static void doGenerate(String inputPath, String outputPath, Object model) throws IOException, TemplateException {
         //new出Configuration对象，参数为FreeMarker版本号
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
 
@@ -54,9 +55,14 @@ public class DynamicGenerator {
         mainTemplateConfig.setLoop(false);
         mainTemplateConfig.setOutputText("求和结果：");
 
+        //文件不存在则创建文件和父目录
+        if (!FileUtil.exist(outputPath)) {
+            FileUtil.touch(outputPath);
+        }
+
         //生成
         Writer out = new java.io.FileWriter(outputPath);
-        template.process(model,out);
+        template.process(model, out);
 
         //关闭连接
         out.close();

@@ -26,7 +26,7 @@ public class Meta {
         private String inputRootPath;
         private String outputRootPath;
         private String type;
-        private List<FilesDTO> fileInfo;
+        private List<FilesDTO> files;
 
         @NoArgsConstructor
         @Data
