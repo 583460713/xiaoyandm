@@ -1,5 +1,6 @@
 ### Custom Template
 
+generated/
 .idea
 xiaoyandm-generator.iml
 xiaoyandm-generator-basic.iml

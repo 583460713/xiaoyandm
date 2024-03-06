@@ -1,6 +1,6 @@
-package com.cm.generator;
+package com.cm.maker.generator.file;
 
-import com.cm.model.MainTemplateConfig;
+import com.cm.maker.model.DataModel;
 import freemarker.template.TemplateException;
 
 import java.io.File;
@@ -10,7 +10,7 @@ import java.io.IOException;
  * 核心代码生成器
  * @author 语仄无言
  */
-public class MainGenerator {
+public class FileGenerator {
 
     public static void doGenerate(Object model) throws TemplateException, IOException {
         String projectPath = System.getProperty("user.dir");
@@ -26,14 +26,14 @@ public class MainGenerator {
         //生成动态文件
         String inputDynamicPath = parentFile2 + File.separator + "src/main/resources/templates/MainTemplate.java.ftl";
         String outputDynamicPath = outputPath + File.separator + "acm-template/src/com/yupi/acm/MainTemplate.java";
-        DynamicGenerator.doGenerate(inputDynamicPath,outputDynamicPath,model);
+        DynamicFileGenerator.doGenerate(inputDynamicPath,outputDynamicPath,model);
     }
 
     public static void main(String[] args) throws TemplateException, IOException {
-        MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
-        mainTemplateConfig.setAuthor("chenmin");
-        mainTemplateConfig.setLoop(false);
-        mainTemplateConfig.setOutputText("求和结果：");
-        doGenerate(mainTemplateConfig);
+        DataModel dataModel = new DataModel();
+        dataModel.setAuthor("chenmin");
+        dataModel.setLoop(false);
+        dataModel.setOutputText("求和结果：");
+        doGenerate(dataModel);
     }
 }

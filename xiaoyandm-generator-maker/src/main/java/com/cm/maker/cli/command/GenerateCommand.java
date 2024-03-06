@@ -1,8 +1,8 @@
-package com.cm.cli.command;
+package com.cm.maker.cli.command;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.cm.generator.MainGenerator;
-import com.cm.model.MainTemplateConfig;
+import com.cm.maker.generator.file.FileGenerator;
+import com.cm.maker.model.DataModel;
 import lombok.Data;
 import picocli.CommandLine;
 
@@ -33,10 +33,10 @@ public class GenerateCommand implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
-        BeanUtil.copyProperties(this,mainTemplateConfig);
-        System.out.println("配置信息：" + mainTemplateConfig);
-        MainGenerator.doGenerate(mainTemplateConfig);
+        DataModel dataModel = new DataModel();
+        BeanUtil.copyProperties(this, dataModel);
+        System.out.println("配置信息：" + dataModel);
+        FileGenerator.doGenerate(dataModel);
         return 0;
     }
 }
