@@ -1,13 +1,14 @@
 {
-  "name": "acm-template-pro-generator",
-  "description": "ACM 示例模板生成器",
+  "name": "my-generator",
+  "description": "我的模板代码生成器",
   "basePackage": "com.cm",
   "version": "1.0",
   "author": "chenmin",
-  "createTime": "2024-03-05",
+  "createTime": "2024-03-04",
   "fileConfig": {
-    "inputRootPath": "/代码集/我的项目/xiaoyandm-generator/xiaoyandm-generator-demo-projects/acm-template-pro",
-    "outputRootPath": "generated",
+    "inputRootPath": ".source/acm-template-pro",
+    "outputRootPath": "/代码集/我的项目/xiaoyandm-generator/acm-template-pro/",
+    "sourceRootPath": "/代码集/我的项目/xiaoyandm-generator/xiaoyandm-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
       {
