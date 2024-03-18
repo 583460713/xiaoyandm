@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "meta": {
+    "name": "springboot-init-generator",
+    "description": "Spring Boot 模板项目生成器"
+  },
+  "originProjectPath": "/代码集/我的项目/xiaoyandm-generator/xiaoyandm-generator-demo-projects/springboot-init"
+}

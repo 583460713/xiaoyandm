@@ -46,56 +46,22 @@ public abstract class GenerateTemplate {
     }
 
     /**
-     * 生成精简版的程序（产物包）
-     * @param outputPath
-     * @param sourceCopyDestPath
-     * @param jarPath
-     * @param shellOutputFilePath
-     */
-    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
-        String distOutPutPath = outputPath + "-dist";   //精简版存放目录
-        //- 拷贝 jar 包
-        String targetAbsolutePath = distOutPutPath + File.separator + "target";
-        FileUtil.mkdir(targetAbsolutePath);
-        String jarAbsolutePath = outputPath + File.separator + jarPath;
-        FileUtil.copy(jarAbsolutePath, targetAbsolutePath, true);
-        //拷贝脚本文件
-        FileUtil.copy(shellOutputFilePath, distOutPutPath, true);
-        //FileUtil.copy(shellOutputFilePath + ".bat",distOutPutPath,true);
-        //拷贝源模板文件
-        FileUtil.copy(sourceCopyDestPath, distOutPutPath, true);
-    }
-
-    /**
-     * 封装脚本
-     * @param outputPath
-     * @param jarPath
-     * @return
-     * @throws IOException
-     */
-    protected String buildScript(String outputPath, String jarPath) throws IOException {
-        String shellOutputFilePath = outputPath + File.separator + "generator";
-        ScriptGenerator.doGenerate(shellOutputFilePath, jarPath);
-        return shellOutputFilePath;
-    }
-
-    /**
-     * 构建jar包
+     * 1、复制原始文件
      * @param meta
      * @param outputPath
      * @return
-     * @throws IOException
-     * @throws InterruptedException
      */
-    protected String buildJar(Meta meta, String outputPath) throws IOException, InterruptedException {
-        JarGenerator.doGenerate(outputPath);
-        String jarName = String.format("%s-%s-jar-with-dependencies.jar", meta.getName(), meta.getVersion());
-        String jarPath = "target/" + jarName;
-        return jarPath;
+    protected static String copySource(Meta meta, String outputPath) {
+
+        String sourceRootPath = meta.getFileConfig().getSourceRootPath();
+        String sourceCopyDestPath = outputPath + File.separator + ".source";
+        FileUtil.copy(sourceRootPath, sourceCopyDestPath, false);
+        return sourceCopyDestPath;
     }
 
+
     /**
-     * 读取 resources目录
+     * 2、读取 resources目录
      * @param meta
      * @param outputPath
      * @throws IOException
@@ -171,17 +137,53 @@ public abstract class GenerateTemplate {
     }
 
     /**
-     * 复制原始文件
+     * 3、构建jar包
      * @param meta
      * @param outputPath
      * @return
+     * @throws IOException
+     * @throws InterruptedException
      */
-    protected static String copySource(Meta meta, String outputPath) {
+    protected String buildJar(Meta meta, String outputPath) throws IOException, InterruptedException {
+        JarGenerator.doGenerate(outputPath);
+        String jarName = String.format("%s-%s-jar-with-dependencies.jar", meta.getName(), meta.getVersion());
+        String jarPath = "target/" + jarName;
+        return jarPath;
+    }
 
-        String sourceRootPath = meta.getFileConfig().getSourceRootPath();
-        String sourceCopyDestPath = outputPath + File.separator + ".source";
-        FileUtil.copy(sourceRootPath, sourceCopyDestPath, false);
-        return sourceCopyDestPath;
+    /**
+     * 4、封装脚本
+     * @param outputPath
+     * @param jarPath
+     * @return
+     * @throws IOException
+     */
+    protected String buildScript(String outputPath, String jarPath) throws IOException {
+        String shellOutputFilePath = outputPath + File.separator + "generator";
+        ScriptGenerator.doGenerate(shellOutputFilePath, jarPath);
+        return shellOutputFilePath;
+    }
+
+
+    /**
+     * 5、生成精简版的程序（产物包）
+     * @param outputPath
+     * @param sourceCopyDestPath
+     * @param jarPath
+     * @param shellOutputFilePath
+     */
+    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
+        String distOutPutPath = outputPath + "-dist";   //精简版存放目录
+        //- 拷贝 jar 包
+        String targetAbsolutePath = distOutPutPath + File.separator + "target";
+        FileUtil.mkdir(targetAbsolutePath);
+        String jarAbsolutePath = outputPath + File.separator + jarPath;
+        FileUtil.copy(jarAbsolutePath, targetAbsolutePath, true);
+        //拷贝脚本文件
+        FileUtil.copy(shellOutputFilePath, distOutPutPath, true);
+        FileUtil.copy(shellOutputFilePath + ".bat",distOutPutPath,true);
+        //拷贝源模板文件
+        FileUtil.copy(sourceCopyDestPath, distOutPutPath, true);
     }
 
 }

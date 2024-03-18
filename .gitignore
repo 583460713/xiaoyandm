@@ -1,5 +1,6 @@
 ### Custom Template
 
+.temp/
 generated/
 .idea
 xiaoyandm-generator.iml

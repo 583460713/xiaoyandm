@@ -12,6 +12,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws TemplateException, IOException, InterruptedException {
         MainGenerator mainGenerator = new MainGenerator();
+        args = new String[]{"generate","--needGit=false"};
         mainGenerator.doGenerate();
     }
 }

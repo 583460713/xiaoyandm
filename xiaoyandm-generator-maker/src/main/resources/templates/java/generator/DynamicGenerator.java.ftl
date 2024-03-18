@@ -1,7 +1,6 @@
 package ${basePackage}.generator;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.file.FileWriter;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

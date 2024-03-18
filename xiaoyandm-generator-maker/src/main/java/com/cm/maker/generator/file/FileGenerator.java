@@ -15,25 +15,20 @@ public class FileGenerator {
     public static void doGenerate(Object model) throws TemplateException, IOException {
         String projectPath = System.getProperty("user.dir");
         //整个项目的根路径
-        File parentFile1 = new File(projectPath).getParentFile().getParentFile();
+        //File parentFile1 = new File(projectPath).getParentFile().getParentFile();
+        File parentFile = new File(projectPath).getParentFile();
         //当前项目的根路径
-        String parentFile2 = new File(projectPath).getParentFile().getAbsolutePath();
+        //String parentFile2 = new File(projectPath).getParentFile().getAbsolutePath();
         //输入路径
-        String inputPath = new File(parentFile1, "xiaoyandm-generator-demo-projects/acm-template").getAbsolutePath();
-        String outputPath = parentFile2;
+        String inputPath = new File(parentFile, "xiaoyandm-generator-demo-projects/acm-template").getAbsolutePath();
+        String outputPath = projectPath;
         //生成静态文件
         StaticGenerator.copyFilesByHutool(inputPath, outputPath);
         //生成动态文件
-        String inputDynamicPath = parentFile2 + File.separator + "src/main/resources/templates/MainTemplate.java.ftl";
-        String outputDynamicPath = outputPath + File.separator + "acm-template/src/com/yupi/acm/MainTemplate.java";
+        //String inputDynamicPath = parentFile2 + File.separator + "src/main/resources/templates/MainTemplate.java.ftl.ftl";
+        //String inputDynamicPath = projectPath + File.separator + "src/main/resources/templates/MainTemplate.java.ftl.ftl";
+        String inputDynamicPath = projectPath + File.separator + "src/main/resources/templates/DataModel.java.ftl.ftl";
+        String outputDynamicPath = outputPath + File.separator + "acm-template/src/com/cm/acm/MainTemplate.java.ftl";
         DynamicFileGenerator.doGenerate(inputDynamicPath,outputDynamicPath,model);
-    }
-
-    public static void main(String[] args) throws TemplateException, IOException {
-        DataModel dataModel = new DataModel();
-        dataModel.setAuthor("chenmin");
-        dataModel.setLoop(false);
-        dataModel.setOutputText("求和结果：");
-        doGenerate(dataModel);
     }
 }

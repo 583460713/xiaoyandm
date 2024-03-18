@@ -4,7 +4,6 @@ import ${basePackage}.cli.command.ConfigCommand;
 import ${basePackage}.cli.command.GenerateCommand;
 import ${basePackage}.cli.command.ListCommand;
 import picocli.CommandLine;
-import picocli.CommandLine.Command;
 
 /**
  * 命令执行器，负责绑定所有子命令，并且提供执行命令的方法

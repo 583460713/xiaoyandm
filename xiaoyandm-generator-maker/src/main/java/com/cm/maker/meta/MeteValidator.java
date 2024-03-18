@@ -11,6 +11,7 @@ import com.cm.maker.meta.enums.ModelTypeEnum;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 元信息校验
@@ -36,6 +37,17 @@ public class MeteValidator {
             return;
         }
         for (Meta.ModelConfig.ModelInfo modelInfo : modelInfoList) {
+            //模型的 groupKey 不为空，表示为模型组配置，则不校验 fieldName 等。
+            String groupKey = modelInfo.getGroupKey();
+            if (StrUtil.isNotEmpty(groupKey)){
+                //生成中间参数
+                List<Meta.ModelConfig.ModelInfo> subModelInfoList = modelInfo.getModels();
+                String allArgsStr = modelInfo.getModels().stream()
+                        .map(subModelInfo -> String.format("\"--%s\"", subModelInfo.getFieldName()))
+                        .collect(Collectors.joining(", "));
+                modelInfo.setAllArgsStr(allArgsStr);
+                continue;
+            }
             //输出默认路径
             String fieldName = modelInfo.getFieldName();
             if (StrUtil.isBlank(fieldName)){
@@ -63,7 +75,7 @@ public class MeteValidator {
 
         // inputRootPath: .source + sourceRootPath 的最后一个层级路径
         String inputRootPath = fileConfig.getInputRootPath();
-        String defaultInputRootPath = ".source" + File.separator +
+        String defaultInputRootPath = ".source/" +
                 FileUtil.getLastPathEle(Paths.get(sourceRootPath)).getFileName().toString();
         if (StrUtil.isEmpty(inputRootPath)){
             fileConfig.setInputRootPath(defaultInputRootPath);
@@ -89,6 +101,11 @@ public class MeteValidator {
             return;
         }
         for (Meta.FileConfig.FileInfo fileInfo : fileInfoList) {
+            String type = fileInfo.getType();
+            //类型为group时不做校验
+            if (FileTypeEnum.GROUP.getValue().equals(type)){
+                continue;
+            }
             //inputPath: 必填
             String inputPath = fileInfo.getInputPath();
             if (StrUtil.isBlank(inputPath)){
@@ -100,8 +117,8 @@ public class MeteValidator {
             if (StrUtil.isEmpty(outputPath)){
                 fileInfo.setOutputPath(inputPath);
             }
+
             // type:默认inputPath有文件后缀（如.java)为file，否则为dir
-            String type = fileInfo.getType();
             if (StrUtil.isBlank(type)){
                 //无文件后缀
                 if (StrUtil.isBlank(FileUtil.getSuffix(inputPath))){
