@@ -1,5 +1,5 @@
 {
-  "name": "springboot-init-generator",
+  "name": "acm-template-pro-generator",
   "description": "我的模板代码生成器",
   "basePackage": "com.cm",
   "version": "1.0",

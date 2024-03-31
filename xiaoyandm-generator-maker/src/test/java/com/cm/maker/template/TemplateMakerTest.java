@@ -3,8 +3,6 @@ package com.cm.maker.template;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.json.JSONUtil;
 import com.cm.maker.meta.Meta;
-import com.cm.maker.template.enums.FileFilterRangeEnum;
-import com.cm.maker.template.enums.FileFilterRuleEnum;
 import com.cm.maker.template.model.TemplateMakerConfig;
 import com.cm.maker.template.model.TemplateMakerFileConfig;
 import com.cm.maker.template.model.TemplateMakerModelConfig;
@@ -13,7 +11,6 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

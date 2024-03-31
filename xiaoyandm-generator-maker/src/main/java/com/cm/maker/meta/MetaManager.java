@@ -29,6 +29,7 @@ public class MetaManager {
     private static Meta initMeta() {
         //String property = System.getProperty("user.dir");
         //String metaJson = ResourceUtil.readUtf8Str("meta.json");
+        //String metaJson = ResourceUtil.readUtf8Str("templateMaker.json");
         String metaJson = ResourceUtil.readUtf8Str("springboot-init-meta.json");
         Meta newMeta = JSONUtil.toBean(metaJson, Meta.class);
         //Meta.FileConfigDTO fileConfig = newMeta.getFileConfig();
