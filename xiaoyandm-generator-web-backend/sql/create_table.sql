@@ -1,7 +1,5 @@
-# 数据库初始化
-
 -- 创建库
-create database if not exists my_db;
+create database if not exists xiaoyandm_db;
 
 -- 切换库
 use xiaoyandm_db;
@@ -21,6 +19,7 @@ create table if not exists user
     isDelete     tinyint      default 0                 not null comment '是否删除',
     index idx_userAccount (userAccount)
     ) comment '用户' collate = utf8mb4_unicode_ci;
+
 
 -- 代码生成器表
 create table if not exists generator
@@ -43,3 +42,6 @@ create table if not exists generator
     isDelete    tinyint  default 0                 not null comment '是否删除',
     index idx_userId (userId)
     ) comment '代码生成器' collate = utf8mb4_unicode_ci;
+
+INSERT INTO xiaoyandm_db.user ( userAccount, userPassword, userName, userAvatar, userProfile, userRole,isDelete) VALUES ( 'admin', 'b0dd3697a192885d7c055db46155b26a', 'admin', 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png', '我有一头小毛驴我骑了还要骑', 'admin',  0);
+INSERT INTO xiaoyandm_db.user (userAccount, userPassword, userName, userAvatar, userProfile, userRole, isDelete) VALUES ('chenmin', 'b0dd3697a192885d7c055db46155b26a', '陈民', 'https://xiaoyandm-1325394162.cos.ap-guangzhou.myqcloud.com/generator_picture/4/ENeNToDF--1.gif', '我有一头小毛驴我骑了还要骑', 'admin',  0);

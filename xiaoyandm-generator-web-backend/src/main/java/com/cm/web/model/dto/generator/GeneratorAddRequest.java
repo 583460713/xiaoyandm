@@ -2,6 +2,8 @@ package com.cm.web.model.dto.generator;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.cm.maker.meta.Meta;
 import lombok.Data;
 
 /**
@@ -12,19 +14,59 @@ import lombok.Data;
 public class GeneratorAddRequest implements Serializable {
 
     /**
-     * 标题
+     * 名称
      */
-    private String title;
+    private String name;
 
     /**
-     * 内容
+     * 描述
      */
-    private String content;
+    private String description;
 
     /**
-     * 标签列表
+     * 基础包
+     */
+    private String basePackage;
+
+    /**
+     * 版本
+     */
+    private String version;
+
+    /**
+     * 作者
+     */
+    private String author;
+
+    /**
+     * 标签列表（json 数组）
      */
     private List<String> tags;
+
+    /**
+     * 图片
+     */
+    private String picture;
+
+    /**
+     * 文件配置（json字符串）
+     */
+    private Meta.FileConfig fileConfig;
+
+    /**
+     * 模型配置（json字符串）
+     */
+    private Meta.ModelConfig modelConfig;
+
+    /**
+     * 代码生成器产物路径
+     */
+    private String distPath;
+
+    /**
+     * 状态
+     */
+    private Integer status;
 
     private static final long serialVersionUID = 1L;
 }
